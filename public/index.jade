@@ -1,12 +1,12 @@
 p Hello from index.jade
 
 p
-  a(ng-href='harp-er-raatt', target='_self') Lenke med pretty url (til .md-fil)
+  a(ng-href='harp-er-raatt.html', target='_self') Lenke med pretty url (til .md-fil)
 
 ul(class='tabs', data-ng-controller='TabsController')
   li(data-ng-class='{ active: oneActive }')
-    a(data-ng-href='/one') One
+    a(data-ng-href='{{Routes.one}}') One
   li(data-ng-class='{ active: twoActive }')
-    a(data-ng-href='/two') Two
+    a(data-ng-href='{{Routes.two}}') Two
 
 div(data-ng-view)

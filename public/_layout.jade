@@ -1,0 +1,27 @@
+!!!
+html
+  head
+    title lean & mean analytics
+    meta(charset='utf-8')
+    meta(name='viewport',content='width=device-width, initial-scale=1.0')
+
+    link(href='vendor/nv.d3.css', rel='stylesheet')
+
+    link(href='styles.css', rel='stylesheet')
+
+  body
+    h3 Lean & mean analytics
+
+    != yield
+
+    script(src='vendor/underscore.js')
+
+    script(src='vendor/backbone.js')
+    script(src='vendor/angular.js')
+
+    script(src='vendor/d3.js')
+    script(src='vendor/d3.geo.js')
+    script(src='vendor/nv.d3.js')
+
+    script(src='events.js')
+    script(src='app.js')

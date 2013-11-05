@@ -1,0 +1,12 @@
+{
+    "name": "fagdag-elasticsearch"
+  , "description": "frontend lean & mean analytics"
+  , "version": "0.0.1"
+  , "keywords": ["elasticsearch", "d3", "nvd3", "angularjs"]
+  , "author": "torgeir thoresen <@torgeir>"
+  , "dependencies": {
+
+  }
+  , "engines": { "node": "0.10.x" }
+  , "main": "index"
+}

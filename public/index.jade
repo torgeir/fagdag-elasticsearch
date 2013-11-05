@@ -3,10 +3,10 @@ p Hello from index.jade
 p
   a(ng-href='harp-er-raatt', target='_self') Lenke med pretty url (til .md-fil)
 
-ul(class='tabs')
-  li.active
+ul(class='tabs', data-ng-controller='TabsController')
+  li(data-ng-class='{ active: oneActive }')
     a(data-ng-href='/one') One
-  li
+  li(data-ng-class='{ active: twoActive }')
     a(data-ng-href='/two') Two
 
 div(data-ng-view)

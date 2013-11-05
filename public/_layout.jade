@@ -1,27 +1,28 @@
 !!!
-html
+html(data-ng-app="leanmean")
   head
     title lean & mean analytics
     meta(charset='utf-8')
     meta(name='viewport',content='width=device-width, initial-scale=1.0')
+    link(href='vendor/js/nv.d3.css', rel='stylesheet')
 
-    link(href='vendor/nv.d3.css', rel='stylesheet')
-
-    link(href='styles.css', rel='stylesheet')
+    link(href='less/styles.css', rel='stylesheet')
 
   body
     h3 Lean & mean analytics
 
     != yield
 
-    script(src='vendor/underscore.js')
+    script(src='vendor/js/jquery-2.0.3.js')
+    script(src='vendor/js/underscore.js')
 
-    script(src='vendor/backbone.js')
-    script(src='vendor/angular.js')
+    script(src='vendor/js/knockout-3.0.0.js')
+    script(src='vendor/js/backbone.js')
+    script(src='vendor/js/angular.js')
 
-    script(src='vendor/d3.js')
-    script(src='vendor/d3.geo.js')
-    script(src='vendor/nv.d3.js')
+    script(src='vendor/js/d3.js')
+    script(src='vendor/js/d3.geo.js')
+    script(src='vendor/js/nv.d3.js')
 
-    script(src='events.js')
-    script(src='app.js')
+    script(src='js/events.js')
+    script(src='js/app.js')

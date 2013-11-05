@@ -1,7 +1,12 @@
 p Hello from index.jade
 
-button.fancy-button fancy button
-
 p
-  a(href='harp-er-raatt')
-    Lenke med pretty url (til .md-fil)
+  a(ng-href='harp-er-raatt', target='_self') Lenke med pretty url (til .md-fil)
+
+ul(class='tabs')
+  li.active
+    a(data-ng-href='/one') One
+  li
+    a(data-ng-href='/two') Two
+
+div(data-ng-view)

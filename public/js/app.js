@@ -16,19 +16,45 @@ app.config(function ($routeProvider, $locationProvider) {
   //});
 
   $routeProvider
-
-    .when('/', {
-      templateUrl: 'partials/' + Routes.one
-    })
-
-    .when(Routes.one, {
-      templateUrl: 'partials/' + Routes.one
-    })
-
-    .when(Routes.two, {
-      controller: TwoController,
-      templateUrl: 'partials/' + Routes.two
-    })
+    .when('/',        route(Routes.one, 'OneController'))
+    .when(Routes.one, route(Routes.one, 'OneController'))
+    .when(Routes.two, route(Routes.two, 'TwoController'))
 
 });
 
+var controllerCache = [];
+function route (template, controller) {
+  var route = {
+    templateUrl: 'partials' + template
+  };
+
+  if (controller) {
+    route.controller = controller;
+
+    route.resolve = {
+      delay: function ($q, $http) {
+        var deferred = $q.defer();
+        if (controllerCache.indexOf(controller) !== -1) {
+          deferred.resolve();
+        }
+        else {
+          $http.get('js/controllers/' + controller + '.js').then(function (response) {
+            controllerCache.push(controller);
+            evalInHead(response.data),
+            deferred.resolve();
+          });
+        }
+        return deferred.promise;
+      }
+    };
+  }
+
+  return route;
+}
+
+var head = document.getElementsByTagName('head')[0];
+function evalInHead (content) {
+  var script = document.createElement('script');
+  script.appendChild(document.createTextNode(content));
+  head.appendChild(script);
+}

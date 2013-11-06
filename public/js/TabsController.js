@@ -5,7 +5,7 @@ function TabsController ($scope, $location, Routes) {
 
   function setActive () {
     var path = $location.path().replace(/^\//, '');
-    $scope.oneActive = (path == '/' || path == Routes.one);
+    $scope.oneActive = (path == '' || path == Routes.one);
     $scope.twoActive = (path == Routes.two);
   }
 }

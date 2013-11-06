@@ -18,10 +18,12 @@ app.config(function ($routeProvider, $locationProvider) {
   $routeProvider
 
     .when('/', {
+      controller: OneController,
       templateUrl: 'partials/' + Routes.one
     })
 
     .when('/' + Routes.one, {
+      controller: OneController,
       templateUrl: 'partials/' + Routes.one
     })
 

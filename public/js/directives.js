@@ -56,6 +56,14 @@ app.directive('ngHistogram', function () {
                   .attr('y', function (d) { return y(d.N) })
                   .attr('height', function (d) { return height-pad - y(d.N) });
 
+        var mean = data.reduce(function (sum, d) { return sum + d.N; }, 0) / data.length;
+        var meanLine = svg.append('line')
+              .attr('class', 'mean')
+              .attr('x1', x(0))
+              .attr('x2', x(data.length - 1) + x.rangeBand())
+              .attr('y1', y(mean))
+              .attr('y2', y(mean));
+
         setInterval(function () {
           for (var key in data) {
             data[key].N = parseInt(Math.random() * max, 10);
@@ -67,6 +75,12 @@ app.directive('ngHistogram', function () {
               .duration(1000)
               .attr('y', function (d) { return y(d.N) })
               .attr('height', function (d) { return height-pad - y(d.N) })
+
+          mean = data.reduce(function (sum, d) { return sum + d.N; }, 0) / data.length;
+          meanLine
+            .transition()
+              .attr('y1', y(mean))
+              .attr('y2', y(mean));
         }, 2000)
       });
     }

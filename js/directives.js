@@ -3,7 +3,7 @@ app.directive('ngHistogram', function () {
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {
-      
+
       var width = 900, height = 300, pad = 20, leftPad = 100, gap = 0.1;
 
       var x = d3.scale.ordinal().rangeRoundBands([leftPad, width - pad], gap);

@@ -1,0 +1,14 @@
+#!/bin/sh
+git submodule update --init --recursive
+harp compile public www
+mv www ~/tmp/harp-release
+git stash
+git checkout gh-pages
+rm -rf *
+mv ~/tmp/harp-release/* .
+rm -rf ~/tmp/harp-release
+git add .
+git commit -m "New release `date`"
+git push origin gh-pages
+git checkout master
+git stash pop

@@ -1311,6 +1311,9 @@ th.hidden-lg,td.hidden-lg{display:table-cell !important}
 .fa-vimeo-square:before{content:"\f194"}
 .fa-turkish-lira:before,.fa-try:before{content:"\f195"}
 .fa-plus-square-o:before{content:"\f196"}
+.axis path,.axis line{fill:none;stroke:#eee;shape-rendering:crispEdges}
+.axis text{font-size:1em}
+.bar{fill:steelblue}
 *{-ms-box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0}
 .fancy-button{display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:6px 12px;font-size:14px;line-height:1.428571429;border-radius:4px;-o-user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:#fff;background-color:#428bca;border-color:#357ebd;text-shadow:0 -1px 0 rgba(0,0,0,0.2);-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 1px 1px rgba(0,0,0,0.075);background-image:-webkit-gradient(linear, left 0, left 100%, from(#428bca), to(#2d6ca2));background-image:-webkit-linear-gradient(top, #428bca 0, #2d6ca2 100%);background-image:-moz-linear-gradient(top, #428bca 0, #2d6ca2 100%);background-image:linear-gradient(to bottom, #428bca 0, #2d6ca2 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);background-repeat:repeat-x;border-color:#2b669a}.fancy-button:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
 .fancy-button:hover,.fancy-button:focus{color:#333;text-decoration:none}
@@ -1339,3 +1342,4 @@ th.hidden-lg,td.hidden-lg{display:table-cell !important}
 @media (min-width:768px){.tabs.nav-justified>li{display:table-cell;width:1%}.tabs.nav-justified>li>a{margin-bottom:0}}.tabs.nav-justified>li>a{margin-right:0;border-radius:4px}
 .tabs.nav-justified>.active>a,.tabs.nav-justified>.active>a:hover,.tabs.nav-justified>.active>a:focus{border:1px solid #ddd}
 @media (min-width:768px){.tabs.nav-justified>li>a{border-bottom:1px solid #ddd;border-radius:4px 4px 0 0} .tabs.nav-justified>.active>a,.tabs.nav-justified>.active>a:hover,.tabs.nav-justified>.active>a:focus{border-bottom-color:#fff}}
+.center{text-align:center}

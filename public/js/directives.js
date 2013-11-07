@@ -64,9 +64,10 @@ app.directive('ngHistogram', function () {
           svg.selectAll('rect')
               .data(data)
               .transition()
+              .duration(1000)
               .attr('y', function (d) { return y(d.N) })
               .attr('height', function (d) { return height-pad - y(d.N) })
-        }, 1000)
+        }, 2000)
       });
     }
   };

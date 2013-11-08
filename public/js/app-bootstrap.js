@@ -1,5 +1,5 @@
 var Routes = {
-  one: 'one.html',
+  hitsperhour: 'hitsperhour.html',
   two: 'two.html'
 };
 
@@ -9,20 +9,16 @@ app.config(function ($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
 
-  //$rootScope.$on('$afterRouteChange', function(){
-    //$window.scrollTo(0,0);
-  //});
-
   $routeProvider
 
     .when('/', {
-      controller: OneController,
-      templateUrl: 'partials/' + Routes.one
+      controller: HitsPerHourController,
+      templateUrl: 'partials/' + Routes.hitsperhour
     })
 
-    .when('/' + Routes.one, {
-      controller: OneController,
-      templateUrl: 'partials/' + Routes.one
+    .when('/' + Routes.hitsperhour, {
+      controller: HitsPerHourController,
+      templateUrl: 'partials/' + Routes.hitsperhour
     })
 
     .when('/' + Routes.two, {

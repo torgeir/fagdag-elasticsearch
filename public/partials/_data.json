@@ -1,4 +1,4 @@
 {
-  "one":   { "layout": false },
-  "two":   { "layout": false }
+  "hitsperhour": { "layout": false },
+  "two":         { "layout": false }
 }

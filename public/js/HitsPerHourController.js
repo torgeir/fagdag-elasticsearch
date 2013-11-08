@@ -1,12 +1,8 @@
-function log (what) {
-  console.log(what);
-}
 
-function OneController ($scope, es) {
+function HitsPerHourController ($scope, es) {
   $scope.hitsPerHour = [];
 
   es.hitsPerHour().then(function (data) {
-    console.log(data);
     nv.addGraph(function() {
       var chart = nv.models.multiBarChart();
       chart.xAxis

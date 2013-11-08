@@ -83,6 +83,27 @@ app.factory('es', function ($http) {
       }).then(function (response) {
         return response.data.facets.response_codes.terms;
       });
+    },
+
+    protocolVersion: function () {
+      return $http.post(searchUrl, {
+        "query" : {
+            "match_all": {}
+        },
+        "facets" : {
+            "httpprotocol": {
+                "terms" : {
+                    "field": "protocol"
+                }
+            }
+        }
+      }).then(function (response) {
+        return response.data.facets.httpprotocol.terms;
+      }).then(function (terms) {
+        return terms.filter(function (term) {
+          return term.term == '1.0' || term.term == '1.1';
+        });
+      });
     }
 
   };

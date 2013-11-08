@@ -1,3 +1,36 @@
+app.directive('ngVerticalStack', function () {
+
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+
+      scope.dataPromise.then(function (data) {
+
+        var svg = d3.select(element.get(0))
+          .append('svg');
+
+        var total = data.map(function (d) { return d.count }).reduce(function (acc, n) { return acc + n }, 0);
+
+        var x = function (d) {
+          return d.count / total * 1000;
+        };
+
+        var colors = d3.scale.category20c().domain([0, 1]);
+
+        svg.selectAll('rect')
+            .data(data)
+            .enter()
+              .append('rect')
+              .attr('x', function (d, i) { return i ? i * x(data[i-1]) : 0 })
+              .attr('y', 0)
+              .attr('width', x)
+              .attr('height', 100)
+              .attr('fill', function (d, i) { return colors(i); })
+      });
+    }
+  }
+});
+
 app.directive('ngStackedHistogram', function () {
 
   return {

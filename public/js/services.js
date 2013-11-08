@@ -17,15 +17,16 @@ app.factory('es', function ($http) {
         }
       }).then(function (response) {
         var data = response.data.facets.hits_by_hour.entries;
-	return _.chain(data)
+				return _.chain(data)
                 .map(function(by_hour) {
                   return {
-                    count: by_hour.count,
-                  date: moment(by_hour.time)
+                    y: by_hour.count,
+		    x: moment(by_hour.time).format('YYYY-MM-DD'), 
+                    time: moment(by_hour.time)
                   };
                 })
                 .groupBy(function(by_date) {
-                  return by_date.date.format('YYYY-MM-DD');
+                  return by_date.time.hour();
                 })
                 .value();
       })

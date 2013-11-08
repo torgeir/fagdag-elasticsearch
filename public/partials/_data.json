@@ -1,4 +1,5 @@
 {
   "hitsperhour": { "layout": false },
-  "two":         { "layout": false }
+  "two":         { "layout": false },
+  "response":    { "layout": false }
 }

@@ -4,9 +4,11 @@ function HitsPerHourController ($scope, es) {
 
   es.hitsPerHour().then(function (data) {
     nv.addGraph(function() {
-      var chart = nv.models.multiBarChart();
+      var chart = nv.models.stackedAreaChart();
       chart.xAxis
-          .tickFormat(d3.format(',f'));
+          .tickFormat(function (date, index) {
+            return moment(date).format('YYYY.MM.DD');
+          });
 
       chart.yAxis
           .tickFormat(d3.format(',.1f'));

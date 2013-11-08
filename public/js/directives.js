@@ -127,7 +127,7 @@ app.directive('ngPie', function (es) {
             .attr("width", "100%")
             .attr("height", "100%");
 
-      es.hitsByResponseCode("jan", "12", 8, 12).then(function (data) {
+      es.hitsByResponseCode("jan", "1", 8, 12).then(function (data) {
         var totalHits = _.reduce(data, function (sum, d) { return sum + d.count}, 0)
             angle = 0,
             color = d3.scale.category20c().domain([0, data.length - 1]),
@@ -159,14 +159,22 @@ app.directive('ngPie', function (es) {
               return generateArc();
             });
 
-        enter
-          .append('g')
-            .attr('transform', 'translate(100, 100)')
-            .append('text')
-              .text(function (data) {
-                console.log(arguments);
-                return data.key;
-              });
+        //angle = 0;
+
+        //enter
+          //.append('g')
+            //.attr('transform', function (data) {
+              //var share = data.count / totalHits * (2 * Math.PI);
+              //var x = 100 + Math.sin(angle + share / 2) * outerRadius;
+              //var y = 100 - Math.cos(angle + share / 2) * outerRadius;
+              //var translate = 'translate(' + x + ', ' + y + ')';
+              //angle += share;
+              //return translate;
+            //})
+            //.append('text')
+              //.text(function (data) {
+                //return data.term;
+              //});
       });
     }
   };

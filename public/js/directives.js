@@ -132,49 +132,52 @@ app.directive('ngPie', function (es) {
             angle = 0,
             color = d3.scale.category20c().domain([0, data.length - 1]),
             innerRadius = 40,
-            outerRadius = 100;
+            outerRadius = 95;
 
-        var enter = svg
+        var text = svg
+          .append('g')
+            .attr('transform', 'translate(100, 100)')
+            .append('text')
+              .attr('transform', 'translate(-10, 4)');
+
+        svg
           .selectAll('path')
           .data(data)
-          .enter();
+          .enter()
+            .append('path')
+              .attr('fill', function (data, i) {
+                return color(i);
+              })
+              .attr('transform', 'translate(100,100)')
+              .attr('d', function (data, i) {
+                var share = data.count / totalHits * (2 * Math.PI);
 
-        enter
-          .append('path')
-            .attr('fill', function (data, i) {
-              return color(i);
-            })
-            .attr('transform', 'translate(100,100)')
-            .attr('d', function (data, i) {
-              var share = data.count / totalHits * (2 * Math.PI);
+                var generateArc = d3.svg.arc()
+                  .innerRadius(innerRadius)
+                  .outerRadius(outerRadius)
+                  .startAngle(angle)
+                  .endAngle(angle + share);
 
-              var generateArc = d3.svg.arc()
-                .innerRadius(innerRadius)
-                .outerRadius(outerRadius)
-                .startAngle(angle)
-                .endAngle(angle + share);
+                angle += share;
 
-              angle += share;
-
-              return generateArc();
-            });
-
-        //angle = 0;
-
-        //enter
-          //.append('g')
-            //.attr('transform', function (data) {
-              //var share = data.count / totalHits * (2 * Math.PI);
-              //var x = 100 + Math.sin(angle + share / 2) * outerRadius;
-              //var y = 100 - Math.cos(angle + share / 2) * outerRadius;
-              //var translate = 'translate(' + x + ', ' + y + ')';
-              //angle += share;
-              //return translate;
-            //})
-            //.append('text')
-              //.text(function (data) {
-                //return data.term;
-              //});
+                return generateArc();
+              })
+              .on('mouseover', function (data) {
+                text.text(data.term);
+                svg.selectAll("path").sort(function (a, b) {
+                  if (a !== data) return -1;
+                  else return 1;
+                });
+                var fill = this.getAttribute('fill');
+                d3.select(this)
+                  .attr('stroke-width', '3')
+                  .attr('stroke', d3.rgb(fill).darker().toString())
+              })
+              .on('mouseout', function () {
+                text.text('');
+                d3.select(this)
+                  .attr('stroke', '');
+              });
       });
     }
   };

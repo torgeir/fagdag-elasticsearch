@@ -1,31 +1,30 @@
-app.directive('ngStackedHistogram', function(es) {
-  console.log("Running directive");
+app.directive('ngStackedHistogram', function () {
+
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      es.hitsPerHour().then(function(data) {
-        nv.addGraph(function() { 
-          var chart = nv.models.stackedAreaChart()
-            .x(function(d) { return d.time.toDate() })
-            .y(function(d) { return d.y })
-            .clipEdge(true);
-  
-          chart.xAxis
-            .tickFormat(function(date, index) {
-		return moment(date).format('YYYY-MM-DD');
-	    });
- 
-          chart.yAxis
-            .tickFormat(d3.format("d"));
- 
-          d3.select(element.get(0)).append('svg')
+
+      scope.dataPromise.then(function (data) {
+        nv.addGraph(function () {
+          var chart = nv.models.stackedAreaChart();
+
+          chart.xAxis.tickFormat(function (date, index) {
+            return moment(date).format('YYYY-MM-DD');
+          });
+
+          chart.yAxis.tickFormat(d3.format("d"));
+
+          d3.select(element.get(0))
+            .append('svg')
             .datum(data)
-            .transition().duration(500).call(chart);
- 
+            .transition()
+              .duration(500)
+              .call(chart);
+
           nv.utils.windowResize(chart.update);
           return chart;
         });
-      }); 
+      });
     }
   }
 });

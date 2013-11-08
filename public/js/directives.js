@@ -134,27 +134,38 @@ app.directive('ngPie', function (es) {
             innerRadius = 40,
             outerRadius = 100;
 
-        svg
+        var enter = svg
           .selectAll('path')
           .data(data)
-          .enter()
-            .append('path')
-              .attr('fill', function (data, i) {
-                return color(i);
-              })
-              .attr('transform', 'translate(100,100)')
-              .attr('d', function (data, i) {
-                var share = data.count / totalHits * (2 * Math.PI);
+          .enter();
 
-                var generateArc = d3.svg.arc()
-                  .innerRadius(innerRadius)
-                  .outerRadius(outerRadius)
-                  .startAngle(angle)
-                  .endAngle(angle + share);
+        enter
+          .append('path')
+            .attr('fill', function (data, i) {
+              return color(i);
+            })
+            .attr('transform', 'translate(100,100)')
+            .attr('d', function (data, i) {
+              var share = data.count / totalHits * (2 * Math.PI);
 
-                angle += share;
+              var generateArc = d3.svg.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(outerRadius)
+                .startAngle(angle)
+                .endAngle(angle + share);
 
-                return generateArc();
+              angle += share;
+
+              return generateArc();
+            });
+
+        enter
+          .append('g')
+            .attr('transform', 'translate(100, 100)')
+            .append('text')
+              .text(function (data) {
+                console.log(arguments);
+                return data.key;
               });
       });
     }

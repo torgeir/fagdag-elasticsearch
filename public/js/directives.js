@@ -85,4 +85,47 @@ app.directive('ngHistogram', function () {
       });
     }
   };
-})
+});
+
+app.directive('ngPie', function (es) {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var svg = d3.select(element.get(0))
+            .append('svg')
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+      es.hitsByResponseCode().then(function (data) {
+        var totalHits = _.reduce(data, function (sum, d) { return sum + d.count}, 0)
+            angle = 0,
+            color = d3.rgb(0, 0, 0)
+            innerRadius = 40,
+            outerRadius = 100;
+
+        var arcData = _.map(data, function (item) {
+          var share = item.count / totalHits * (2 * Math.PI);
+
+          var arc =  d3.svg.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(outerRadius)
+            .startAngle(angle)
+            .endAngle(angle + share);
+
+          angle += share;
+          return arc;
+        });
+
+        _.forEach(arcData, function (arc) {
+          svg
+            .append('path')
+              .attr('d', arc)
+              .attr('fill', color.toString())
+              .attr('transform', 'translate(100,100)');
+
+          color = color.brighter(0.5);
+        });
+      });
+    }
+  };
+});

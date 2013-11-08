@@ -40,6 +40,24 @@ app.factory('es', function ($http) {
                 })
                 .value();
       });
+    },
+
+    hitsByResponseCode: function () {
+      return $http.post(searchUrl, {
+        "query": {
+            "match_all": {}
+        },
+        "facets": {
+            "hits_by_response_code": {
+              "histogram": {
+                  "field": "responsecode",
+                  "interval": 1
+              }
+            }
+        }
+      }).then(function (response) {
+        return response.data.facets.hits_by_response_code.entries;
+      });
     }
 
   };

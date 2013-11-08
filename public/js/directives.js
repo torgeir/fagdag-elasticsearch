@@ -1,3 +1,34 @@
+app.directive('ngStackedHistogram', function () {
+
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+
+      scope.dataPromise.then(function (data) {
+        nv.addGraph(function () {
+          var chart = nv.models.stackedAreaChart();
+
+          chart.xAxis.tickFormat(function (date, index) {
+            return moment(date).format('YYYY-MM-DD');
+          });
+
+          chart.yAxis.tickFormat(d3.format("d"));
+
+          d3.select(element.get(0))
+            .append('svg')
+            .datum(data)
+            .transition()
+              .duration(500)
+              .call(chart);
+
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
+      });
+    }
+  }
+});
+
 app.directive('ngHistogram', function () {
 
   return {

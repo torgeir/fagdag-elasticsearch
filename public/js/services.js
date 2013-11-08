@@ -4,32 +4,22 @@ app.factory('es', function ($http) {
   var searchUrl = baseUrl + '/_search';
 
   var service = {
-
     hitsPerHour: function () {
       return $http.post(searchUrl, {
         "query" : {
-            "filtered": {
-              "query": {
-                    "match_all": {}
-              },
-              "filter": {
-                  "term": {
-                      "monthofyear": "jan"
-                  }
-              }
-            }
+          "match_all": {}
         },
         "facets" : {
-            "hits_by_hour" : {
-                "date_histogram" : {
-                    "field" : "timestamp",
-                    "interval" : "hour"
-                }
+          "hits_by_hour" : {
+            "date_histogram" : {
+              "field" : "timestamp",
+              "interval" : "hour"
             }
+          }
         }
-    }).then(function (response) {
-      var data = response.data.facets.hits_by_hour.entries;
-      return _.chain(data)
+      }).then(function (response) {
+        var data = response.data.facets.hits_by_hour.entries;
+        return _.chain(data)
               .map(function(by_hour) {
                 var date = moment(by_hour.time);
                 date.add('hours', date.zone()/60);
@@ -56,40 +46,40 @@ app.factory('es', function ($http) {
 
     hitsByResponseCode: function (month, dayOfMonth, startHour, endHour) {
       return $http.post(searchUrl, {
-    "query": {
-        "match_all": {}
-    },
-    "facets": {
-       "response_codes": {
-          "terms": {
-             "field": "responsecode"
-          },
-          "facet_filter": {
+        "query": {
+          "match_all": {}
+        },
+        "facets": {
+          "response_codes": {
+            "terms": {
+              "field": "responsecode"
+            },
+            "facet_filter": {
               "and": {
-                 "filters": [
-                    {
-                        "term": {
-                           "monthofyear": month
-                        }
-                    },
-                    {
-                        "term": {
-                           "dayofmonth": dayOfMonth
-                        }
-                    },
-                    {
-                        "range": {
-                           "hourofday": {
-                              "from": startHour,
-                              "to": endHour
-                           }
-                        }
+                "filters": [
+                  {
+                    "term": {
+                      "monthofyear": month
                     }
-                 ]
+                  },
+                  {
+                    "term": {
+                      "dayofmonth": dayOfMonth
+                    }
+                  },
+                  {
+                    "range": {
+                      "hourofday": {
+                        "from": startHour,
+                        "to": endHour
+                      }
+                    }
+                  }
+                ]
               }
+            }
           }
-       }
-    }
+        }
       }).then(function (response) {
 	console.log(response);
         return response.data.facets.response_codes.terms;

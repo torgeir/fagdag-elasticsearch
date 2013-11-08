@@ -81,7 +81,6 @@ app.factory('es', function ($http) {
           }
         }
       }).then(function (response) {
-	console.log(response);
         return response.data.facets.response_codes.terms;
       });
     }

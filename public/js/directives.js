@@ -130,10 +130,9 @@ app.directive('ngPie', function (es) {
       es.hitsByResponseCode("jan", "12", 8, 12).then(function (data) {
         var totalHits = _.reduce(data, function (sum, d) { return sum + d.count}, 0)
             angle = 0,
-            color = d3.scale.category20c(),
+            color = d3.scale.category20c().domain([0, data.length - 1]),
             innerRadius = 40,
             outerRadius = 100;
-
 
         svg
           .selectAll('path')

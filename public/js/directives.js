@@ -127,7 +127,7 @@ app.directive('ngPie', function (es) {
             .attr("width", "100%")
             .attr("height", "100%");
 
-      es.hitsByResponseCode().then(function (data) {
+      es.hitsByResponseCode("jan", "12", 8, 12).then(function (data) {
         var totalHits = _.reduce(data, function (sum, d) { return sum + d.count}, 0)
             angle = 0,
             color = d3.scale.category20c(),

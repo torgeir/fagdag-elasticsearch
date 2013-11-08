@@ -54,21 +54,45 @@ app.factory('es', function ($http) {
       });
     },
 
-    hitsByResponseCode: function () {
+    hitsByResponseCode: function (month, dayOfMonth, startHour, endHour) {
       return $http.post(searchUrl, {
-        "query": {
-            "match_all": {}
-        },
-        "facets": {
-            "hits_by_response_code": {
-              "histogram": {
-                  "field": "responsecode",
-                  "interval": 1
+    "query": {
+        "match_all": {}
+    },
+    "facets": {
+       "response_codes": {
+          "terms": {
+             "field": "responsecode"
+          },
+          "facet_filter": {
+              "and": {
+                 "filters": [
+                    {
+                        "term": {
+                           "monthofyear": month
+                        }
+                    },
+                    {
+                        "term": {
+                           "dayofmonth": dayOfMonth
+                        }
+                    },
+                    {
+                        "range": {
+                           "hourofday": {
+                              "from": startHour,
+                              "to": endHour
+                           }
+                        }
+                    }
+                 ]
               }
-            }
-        }
+          }
+       }
+    }
       }).then(function (response) {
-        return response.data.facets.hits_by_response_code.entries;
+	console.log(response);
+        return response.data.facets.response_codes.terms;
       });
     }
 

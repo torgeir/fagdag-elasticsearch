@@ -16,8 +16,19 @@ app.factory('es', function ($http) {
             }
         }
       }).then(function (response) {
-        return response.data.facets.hits_by_hour.entries;
-      })
+        var data = response.data.facets.hits_by_hour.entries;
+	return _.chain(data)
+		.map(function(by_hour) {
+	   		return {
+				count: by_hour.count,
+				date: moment(by_hour.time)
+	   		};
+		})
+		.groupBy(function(by_date) {
+			return by_date.date.format('YYYY-MM-DD');
+		})
+		.value();
+        })
     }
   };
 

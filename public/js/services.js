@@ -1,7 +1,10 @@
 app.factory('es', function ($http) {
+
   var baseUrl = 'http://localhost:9200';
   var searchUrl = baseUrl + '/_search';
+
   var service = {
+
     hitsPerHour: function () {
       return $http.post(searchUrl, {
         "query": {
@@ -17,20 +20,28 @@ app.factory('es', function ($http) {
         }
       }).then(function (response) {
         var data = response.data.facets.hits_by_hour.entries;
-				return _.chain(data)
+        return _.chain(data)
                 .map(function(by_hour) {
+                  var date = moment(by_hour.time);
                   return {
+                    x: date.get('date'),
                     y: by_hour.count,
-		    x: moment(by_hour.time).format('YYYY-MM-DD'), 
-                    time: moment(by_hour.time)
+                    hour: date.get('hour')
                   };
                 })
-                .groupBy(function(by_date) {
-                  return by_date.time.hour();
+                .groupBy(function (d) {
+                  return d.hour;
+                })
+                .map(function (arr) {
+                  return {
+                    key: arr[0].hour,
+                    values: arr
+                  };
                 })
                 .value();
-      })
+      });
     }
+
   };
 
   return service;

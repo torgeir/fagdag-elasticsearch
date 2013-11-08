@@ -7,6 +7,7 @@ function TabsController ($scope, $location, Routes) {
     var path = $location.path().replace(/^\//, '');
     $scope.hitsperhourActive = (path == '' || path == Routes.hitsperhour);
     $scope.twoActive = (path == Routes.two);
+    $scope.responseActive = (path == Routes.response);
   }
 }
 

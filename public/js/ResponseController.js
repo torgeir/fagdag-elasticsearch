@@ -1,0 +1,3 @@
+function ResponseController ($scope, es) {
+
+}

@@ -6,5 +6,7 @@ ul(class='tabs', data-ng-controller='TabsController')
 
   li(data-ng-class='{ active: twoActive }')
     a(data-ng-href='{{Routes.two}}') Two
+  li(data-ng-class='{ active: responseActive }')
+    a(data-ng-href='{{Routes.response}}') Response
 
 div(data-ng-view)
